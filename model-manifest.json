@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "repository": "lesser-vr/ScreenTo3D-Models",
+  "release": "packs-2026.11.1",
+  "artifact_scope": "Converted ONNX graphs and numeric reference samples; no app, runtime, video or serialized engine",
+  "conversion_source_commit": "b3b76868eb9348c9a74228591a8521acf417eaaa",
+  "conversion_source_dirty": true,
+  "conversion_scripts": {
+    "scripts/build-model-packs.py": "dc6026e2665cb5b950ef26efc496282dbc9a4a290143a664564e3ccaedab1a96",
+    "v1/base_trt_fp16_trial.py": "2ec6560a259b2feeb2c8bf05e947f72bf8b03ef9e106da8249a3f4ee03770837",
+    "v1/export_vda_spike.py": "927ad2acf89a6be20c1064d70b2510f1e5d4d93fefb130d67d54a20ac552c19d",
+    "v1/build_vda_mixed_fp16.py": "18478df4d2b984d3c256c9147e44d5db7d9c5517e2c5bcbcd602428d3ac396f8",
+    "v1/build_vda_spatial_trial.py": "1fe0ea088720fb8b93893fa94535c7e8bc69a6649ab659e543a469ba1a2bd338"
+  },
+  "validated_environment": {
+    "os": "Windows x64",
+    "gpu": "RTX 5090",
+    "tensorrt": "11.2.1.2",
+    "scope": "Local validation; not certification of all GPUs"
+  },
+  "models": {
+    "da2-base": {
+      "filename": "da2-base-onnx-v1.zip",
+      "url": "https://github.com/lesser-vr/ScreenTo3D-Models/releases/download/packs-2026.11.1/da2-base-onnx-v1.zip",
+      "size": 392348171,
+      "sha256": "61bf0969e59e0b098ad4f968522b990d844ff7e4a0654dd82bbadfcd6b054731",
+      "license": "CC-BY-NC-4.0",
+      "upstream_model": "https://huggingface.co/depth-anything/Depth-Anything-V2-Base",
+      "upstream_source": "https://github.com/DepthAnything/Depth-Anything-V2",
+      "source_revision": "a561b849ebae10a6f5ef49e26c83cbbcd36c71bf",
+      "weight_revision": "a4e71a6c2ce52fe50df0f212066b0d4a87be9b5e",
+      "weight_filename": "depth_anything_v2_vitb.pth",
+      "weight_bytes": 389961218,
+      "weight_sha256": "0d2b7002e62d39d655571c371333340bd88f67ab95050c03591555aa05645328",
+      "conversion": "Fixed-shape mixed-FP16 ONNX; Resize, LayerNormalization and Softmax stay FP32; FP32 input/output",
+      "reference_contract": "Final-depth samples: atol=rtol=0.02",
+      "profiles": [
+        {
+          "height": 518,
+          "width": 896
+        },
+        {
+          "height": 518,
+          "width": 924
+        }
+      ],
+      "members": {
+        "NOTICE.txt": {
+          "bytes": 272,
+          "sha256": "194d59a6334a5d92950413fc19faaef70ac5f03ffb49106b229eeee1e5f0204a"
+        },
+        "518x896-fp16/model.onnx": {
+          "bytes": 196115970,
+          "sha256": "a955082568d50df8b5e140ce0d62ab67beebcb8c25f9ffd87d067c8a027430e1"
+        },
+        "518x896-fp16/reference.npz": {
+          "bytes": 841,
+          "sha256": "b0fb9cad3dfa351e3203aea1f62d598fd4d6e357fb949d3050939dccf794b0f2"
+        },
+        "518x924-fp16/model.onnx": {
+          "bytes": 196229634,
+          "sha256": "7246031b12c9cfb5d1007e715da05f9472241937fce795e6013727723a57323f"
+        },
+        "518x924-fp16/reference.npz": {
+          "bytes": 836,
+          "sha256": "1835299991b7ce1450ddec48f9adf993bc4a673c3f5002ed4c29e9dfbf3ba1fe"
+        }
+      }
+    },
+    "vda-small": {
+      "filename": "vda-small-onnx-v3.zip",
+      "url": "https://github.com/lesser-vr/ScreenTo3D-Models/releases/download/packs-2026.11.1/vda-small-onnx-v3.zip",
+      "size": 363291834,
+      "sha256": "b4e68c45328e37b601c95f1d06a024c41c510c6c980ba2fcdec5b1030603778f",
+      "license": "Apache-2.0",
+      "upstream_model": "https://huggingface.co/depth-anything/Video-Depth-Anything-Small",
+      "upstream_source": "https://github.com/DepthAnything/Video-Depth-Anything",
+      "source_revision": "4f5ae23172ba60fd7bc11ef671cca678842c7072",
+      "weight_revision": "256875362cff76724b920335dfb4b29dd611f66e",
+      "weight_filename": "video_depth_anything_vits.pth",
+      "weight_bytes": 116440756,
+      "weight_sha256": "13379300b739e659f076a59d52e9801bd8d38c541a7e71f73bbca4dcfb013609",
+      "conversion": "Fixed-shape streaming warmup/cached ONNX; mixed-FP16 encoder projections and spatial attention; FP32 temporal layers, state and output",
+      "reference_contract": "Final-depth samples: atol=rtol=0.001; intermediate cache: vda-fp16-cache-v1",
+      "profiles": [
+        {
+          "height": 518,
+          "width": 896
+        },
+        {
+          "height": 518,
+          "width": 924
+        }
+      ],
+      "members": {
+        "NOTICE.txt": {
+          "bytes": 202,
+          "sha256": "dceefcd33e67e57fe3b58fb87c7ef8b11cb95661aca28bc2dd1e99252e7bb77d"
+        },
+        "518x896-fp16/cached.onnx": {
+          "bytes": 105252248,
+          "sha256": "dd31fa65c597761ab199a91f74f851c262a9d1fcdf68a17ed8550f9eecee3112"
+        },
+        "518x896-fp16/reference.npz": {
+          "bytes": 23254,
+          "sha256": "83ce8fe0125b04bab1d2e656ac42775aefddcddab44775843f7949f7d9f34d1d"
+        },
+        "518x896-fp16/warmup.onnx": {
+          "bytes": 75761432,
+          "sha256": "13361c3f0e32cae6825b3a63172e3325517f17d13e0c17082976df114bda7a84"
+        },
+        "518x924-fp16/cached.onnx": {
+          "bytes": 106314136,
+          "sha256": "4faadb5fc59ed3217e4ed149969f7dd33bca13ae2d17146b4a975ef36332dab5"
+        },
+        "518x924-fp16/reference.npz": {
+          "bytes": 23310,
+          "sha256": "a2c3f47c283d9c4160b94d7e08bb164527166d6048b7aba3fc8b70382e3c940b"
+        },
+        "518x924-fp16/warmup.onnx": {
+          "bytes": 75904728,
+          "sha256": "a5070181d508da47f0f3c25d6a34554da05d591d0dedaa1c4801b2a2ad2bccf5"
+        },
+        "LICENSE.txt": {
+          "bytes": 11556,
+          "sha256": "5ad8c213095c573921d7388edf93f6a9f54490b8ebf3b165ae8ef1947cf70846"
+        }
+      }
+    }
+  }
+}
